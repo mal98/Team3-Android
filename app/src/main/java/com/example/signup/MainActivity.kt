@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
                 Response.Listener {
                     response ->
                     //println("Signed In")
-                    //textView5.text = (response.toString())
+                    textView5.text = (response.toString())
                     Toast.makeText(applicationContext, "Successfully Logged In", Toast.LENGTH_SHORT).show()
                 }, Response.ErrorListener {
                     //Toast("Fail")
@@ -46,6 +46,16 @@ class MainActivity : AppCompatActivity() {
                 })
                 que.add(req)
         }
+
+        /*btn_login.setOnClickListener {
+            val request = StringRequest(Request.Method.GET, url, Response.Listener { responseString ->
+                textView3.text = responseString }, Response.ErrorListener {VolleyError ->
+                textView4.text = VolleyError.message})
+            Volley.newRequestQueue(this).add(request)
+        } //end of button listener*/
+
+
+
 
 }
 }
