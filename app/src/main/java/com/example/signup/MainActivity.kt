@@ -8,35 +8,44 @@ import android.util.Patterns
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
+import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_main.*
+import org.json.JSONException
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
-    val url="http://0.0.0.0:5000/testingjson"
+    val url="https://team3-android.uc.r.appspot.com/loginjson"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val jsonobj = JSONObject()
         btn_login.setOnClickListener {
-
-            jsonobj.put("username",username.text)
-            jsonobj.put("password",password.text)
+            println("start of click")
+            jsonobj.put("Username",username.text)
+            jsonobj.put("Password",password.text)
 
             val que = Volley.newRequestQueue(this@MainActivity)
-            val req = JsonObjectRequest(Request.Method.POST,url,null,
+            val req = JsonObjectRequest(Request.Method.POST,url, jsonobj,
                 Response.Listener {
                     response ->
-                    Toast(response.['success'].toString())
+                    //println("Signed In")
+                    //textView5.text = (response.toString())
+                    Toast.makeText(applicationContext, "Successfully Logged In", Toast.LENGTH_SHORT).show()
                 }, Response.ErrorListener {
-                    Toast("Something went wrong")
+                    //Toast("Fail")
+                    //println("Failed to sign in")
+                    //println(it)
+                    //textView3.text = "Fail"
+                    Toast.makeText(applicationContext, "Invalid Login", Toast.LENGTH_SHORT).show()
 
                 })
                 que.add(req)
         }
 
-    }
+}
 }
